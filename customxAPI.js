@@ -53,9 +53,9 @@ function sendStatement(verb, verbID, object, objectID, typeID, response) {
  */
 function queryLRS() {
     // Set variables
-    agent = document.getElementById("uActor")
-    verb = document.getElementById("uVerb")
-    activity = document.getElementById("uActivity")
+    const agent = document.getElementById("uActor")
+    const verb = document.getElementById("uVerb")
+    const activity = document.getElementById("uActivity")
 
     // LRS Configuration for XAPIWrapper function.
     const conf = {
