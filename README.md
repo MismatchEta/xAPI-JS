@@ -1,3 +1,4 @@
 # xAPI-JS
-Javascript Files for xAPI experiments
+Files for random xAPI experiments
+
 xapiwrapper file from: https://github.com/adlnet/xAPIWrapper
