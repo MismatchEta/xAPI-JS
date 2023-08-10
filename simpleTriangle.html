@@ -82,13 +82,63 @@
     </script>
   </head>
   <body>
-    <div id="CSCanvas"></div>
-    <br>
     <div>
-      <h3>Debug & Helpers:</h3><br>
+      <h3>Actor details to be sent to LRS</h3><br>
       <label>xAPI Agent (Name): <input id="uName" type="text" size="30" value="John Doe"></label><br>
       <label>xAPI Agent (Mail): <input id="uEmail" type="text" size="30" value="foo@bar.de"></label><br><br>
-      <button onclick="console.log(coords)">P to console.</button>
     </div>
+    <br>
+    <div id="CSCanvas"></div>   
+    <br>
+    <div>
+      <h3>Query the LRS</h3>
+      <p>Put in what to query. Leave blank to get all.</p><br>
+      <label>Actor: <input id="uActor" type="text" size="30" value="{'mbox': 'foo@bar.de'}"> (Can be anything from the "actor" object, default here is mail property)</label><br>
+      <label>Verb ID: <input id="uVerb" type="text" size="30" value="http://example-iri-domain.com/verbs/moved"></label><br>
+      <label>Activity ID: <input id="uActivity" type="text" size="30" value="http://example-iri-domain.com/objects/P"></label><br><br>
+      <button onclick="queryLRS()">Send query</button><br><br>
+      <hr>
+      <h3>For reference: Basic xAPI object</h3>
+      <pre>
+        <code>
+          {
+            "actor":{
+            "objectType":"Agent"
+            "name":"John Doe"
+            "mbox":"mailto:foo@bar.de"
+            }
+            "verb":{
+            "id":"http://example-iri-domain.com/verbs/moved"
+            "display":{
+            "en-us":"moved"
+            }
+            }
+            "object":{
+            "id":"http://example-iri-domain.com/objects/P"
+            "definition":{
+            "name":{
+            "en-us":"P"
+            }
+            "description":{
+            "en-us":"Some description of the object."
+            }
+            "type":"http://example-iri-domain.com/objType/Point"
+            }
+            "objectType":"Activity"
+            }
+            "result":{
+            "response":"1,-0.5,0.5"
+            }
+            "id":"227074fe-8345-45a8-834e-a03487188c09"
+            "timestamp":"2023-08-10T11:30:26.740Z"
+            "stored":"2023-08-10T11:30:26.740Z"
+            "authority":{...}
+            "meta":{...}
+            }
+        </code>
+      </pre>
+      <h3>Experiments</h3>
+      <button onclick="console.log(coords)">P to console</button><br><br>
+    </div> 
   </body>
 </html>
