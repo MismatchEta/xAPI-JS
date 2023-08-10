@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>simpleTriangle.cdy</title>
+
+    <!-- xAPI Wrapper and Function -->
+    <script type="text/javascript" src="https://mismatcheta.github.io/xAPI-JS/xapiwrapper.min.js"></script>
+    <script type="text/javascript" src="customxAPI.js"></script>
+    <!--<script type="text/javascript" src="https://mismatcheta.github.io/xAPI-JS/customxAPI.js"></script>
+    uncomment later-->
+  </head>
+  <body>
+    <div>
+      <h3>Query the LRS</h3>
+      <p>Put in what to query.</p><br>
+      <label>Actor: <input id="uActor" type="text" size="30" value="{'mbox': 'mailto:foo@bar.de'}"> (Can be anything from the "actor" object, default here is mail property)</label><br>
+      <label>Verb ID: <input id="uVerb" type="text" size="30" value="http://example-iri-domain.com/verbs/moved"></label><br>
+      <label>Object ID: <input id="uObject" type="text" size="30" value="http://example-iri-domain.com/objects/P"></label><br>
+      <label>Since (Date): <span style="font-style:italic; color: brown;"># Not implemented yet, #</span></label><br>
+      <label>Until (Date): <span style="font-style:italic; color: brown;"># you get the idea. #</span></label><br><br>
+      <button onclick="queryLRS()">Send query</button><br><br>
+    </div>
+    <hr>
+    <div>
+      <h3>Query Results</h3>
+      <ul id="query-results">
+        <li style="color:brown;">Click the button to refresh query results.</li>
+        <li>You can also try changing the mbox mail entry to "ham@eggs.de".</li>
+        <li>Or you try to query for the actors name (see reference object below for correct syntax).</li>
+      </ul>
+    </div>
+  </body>
+</html>

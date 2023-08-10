@@ -6,8 +6,9 @@
 
     <!-- xAPI Wrapper and Function -->
     <script type="text/javascript" src="https://mismatcheta.github.io/xAPI-JS/xapiwrapper.min.js"></script>
-    <script type="text/javascript" src="https://mismatcheta.github.io/xAPI-JS/customxAPI.js"></script>
-
+    <script type="text/javascript" src="customxAPI.js"></script>
+    <!--<script type="text/javascript" src="https://mismatcheta.github.io/xAPI-JS/customxAPI.js"></script>
+    uncomment later-->
     <!-- Imports for CindyJS -->
     <style type="text/css">
         * {
@@ -90,13 +91,6 @@
     <br>
     <div id="CSCanvas"></div>   
     <br>
-    <div>
-      <h3>Query the LRS</h3>
-      <p>Put in what to query. Leave blank to get all.</p><br>
-      <label>Actor: <input id="uActor" type="text" size="30" value="{'mbox': 'foo@bar.de'}"> (Can be anything from the "actor" object, default here is mail property)</label><br>
-      <label>Verb ID: <input id="uVerb" type="text" size="30" value="http://example-iri-domain.com/verbs/moved"></label><br>
-      <label>Activity ID: <input id="uActivity" type="text" size="30" value="http://example-iri-domain.com/objects/P"></label><br><br>
-      <button onclick="queryLRS()">Send query</button><br><br>
       <hr>
       <h3>For reference: Basic xAPI object</h3>
       <pre>
@@ -137,8 +131,6 @@
             }
         </code>
       </pre>
-      <h3>Experiments</h3>
-      <button onclick="console.log(coords)">P to console</button><br><br>
     </div> 
   </body>
 </html>

@@ -1,7 +1,19 @@
-/** Takes an xAPI Verb and Object alongside it's IRIs to
- *  writer an xAPI Statement to an LRS as configured below.
- *  The user Agent is to be provided by an Element with id "uName"
- *  and "uEmail" respectively.
+/**
+ * Todo:
+ * - clean up functions
+ * - try-catch lrs connection errors (see adl documentation)
+ * - conf as seperate function for queryLRS() and sentStatement()
+ * - writer proper doc-strings
+ * - OO, maybe
+ */
+
+/** Sends basic xAPI Statement to configured LRS.
+ * @param [string] verb - verb to display
+ * @param [string] verbID - IRI of verb for reference in queries etc.
+ * @param [string] object - object to display (hard coded as activity)
+ * @param [string] objectID - IRI of object for reference in queries etc.
+ * @param [string] typeID - IRI of type in definition child.
+ * @param [string] response - for result object of statement.
  */
 function sendStatement(verb, verbID, object, objectID, typeID, response) {
     // User Agent Variables.
@@ -48,44 +60,45 @@ function sendStatement(verb, verbID, object, objectID, typeID, response) {
     const result = ADL.XAPIWrapper.sendStatement(statement);
 }
 
-/** Useful docstring
- * 
+/** Sends a query to LRS with details given by some textboxes.
+ *  @returns [Object] queryData - Object of statement-Array from LRS (json)
  */
 function queryLRS() {
     // Set variables
-    const agent = document.getElementById("uActor")
-    const verb = document.getElementById("uVerb")
-    const activity = document.getElementById("uActivity")
+    const agent = document.getElementById("uActor").value
+    const verb = document.getElementById("uVerb").value
+    const activity = document.getElementById("uObject").value
 
     // LRS Configuration for XAPIWrapper function.
     const conf = {
         "endpoint": "https://sample-lrs-opavazi.lrs.io/xapi/",
-        "auth": "Basic " + toBase64("writer:dingleberry")
+        "auth": "Basic " + toBase64("reader:dingleberry")
     };
 
     // Connecting to LRS.
     ADL.XAPIWrapper.changeConfig(conf);
 
-    // Defining search parameters.
+    // Define search parameters.
     // Note: You can query by agent, verb, activity or timestamp
     // basically the things that have to exist
     const parameters = ADL.XAPIWrapper.searchParams()
     parameters["agent"] = agent 
     parameters["verb"] = verb
-    parameters["activity"] = activity
+    parameters["object"] = activity
 
-    const queryData = ADL.XAPI.Wrapper.getStatements(parameters)
+    // Query LRS
+    const queryData = ADL.XAPIWrapper.getStatements(parameters)
+    
+    // Populate unordered list with details from queryData
+    document.getElementById("query-results").textContent = ""
+    queryData.statements.forEach(printStatements)
+
+    return queryData
 }
 
-/**
- * Todo:
- * - Funktionen aufräumen
- * - conf als extra Funktion aus queryLRS() und sendStatement() extrahieren
- * - write proper doc-strings
- */
-
-/**
- * Open questions:
- * - test, how to query with wildcard (e.g. for verb) 
- * --- can you do parameters["verb"] = null
- */
+function printStatements(statement) {
+    const newEntry = document.createElement("li")
+    const newStatement = document.createTextNode(statement.actor.name + " " + statement.verb.display["en-us"] + " " + statement.object.definition.name["en-us"] + " to coords: [" + statement.result.response + "]")
+    newEntry.appendChild(newStatement) 
+    document.getElementById("query-results").appendChild(newEntry)
+ }
